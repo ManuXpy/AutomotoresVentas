@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7d370651-273b-4627-a5e7-cd00e1f8e04e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="facturaCodigo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[facturaCodigo]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+factura.id_factura,
+factura.fecha_factura,
+factura.clientes_cod_cliente,
+factura.empleados_emple_codigo,
+factura_detalle.productos_produ_codigo,
+factura_detalle.factura_id_factura,
+factura_detalle.cantidad,
+productos.produ_precio_vent,
+impuesto.descri_impuesto,
+estado.estado_descripcion,
+CONCAT(productos.produ_descripcion,"  ",productos.productos_marca),
+CONCAT(empleados.emple_nombres,"  ",empleados.emple_apellido),
+CONCAT(clientes.nombre_cliente,"  ",clientes.razonsocial_cliente)
+FROM
+factura_detalle,
+factura ,
+productos,
+empleados,
+clientes,
+impuesto,
+estado
+WHERE
+productos.produ_codigo=factura_detalle.productos_produ_codigo AND
+empleados.emple_codigo=factura.empleados_emple_codigo AND
+clientes.cod_cliente=factura.clientes_cod_cliente AND
+productos.impuesto_id_impuesto=impuesto.id_impuesto  AND
+productos.estado_id_estado=estado.id_estado AND
+factura.id_factura=factura_detalle.factura_id_factura AND
+factura_id_factura= $P{facturaCodigo}]]>
+	</queryString>
+	<field name="id_factura" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha_factura" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="clientes_cod_cliente" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="empleados_emple_codigo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="productos_produ_codigo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="factura_id_factura" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="produ_precio_vent" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descri_impuesto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estado_descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CONCAT(productos.produ_descripcion,&quot;  &quot;,productos.productos_marca)" class="java.lang.String"/>
+	<field name="CONCAT(empleados.emple_nombres,&quot;  &quot;,empleados.emple_apellido)" class="java.lang.String"/>
+	<field name="CONCAT(clientes.nombre_cliente,&quot;  &quot;,clientes.razonsocial_cliente)" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="44" uuid="0cc79627-9b29-4a80-9f67-804cee0cb83c"/>
+				<textElement textAlignment="Center">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Automotores Sheldon Cooper & Asociados]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="122" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="11" width="100" height="20" uuid="95678912-0566-413a-852d-c1ab9793a459"/>
+				<text><![CDATA[Factura Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="11" width="100" height="20" uuid="168b778c-a80d-4dd2-9bd4-c675923c935e"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="31" width="100" height="20" uuid="04c9cd42-f592-4d10-b58b-089ecf734ff4"/>
+				<textFieldExpression><![CDATA[$F{id_factura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="31" width="100" height="20" uuid="2440ab4a-189a-45d7-8b17-f1c6434fe14c"/>
+				<textFieldExpression><![CDATA[$F{fecha_factura}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="79" width="100" height="20" uuid="6a1618bb-ed5d-475a-9897-bba6020bc09e"/>
+				<text><![CDATA[Empleado]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="79" width="185" height="20" uuid="51d49396-6cb9-4f82-8c82-37d3a1a291c7"/>
+				<textFieldExpression><![CDATA[$F{CONCAT(empleados.emple_nombres,"  ",empleados.emple_apellido)}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="99" width="100" height="20" uuid="6ac4ab51-f643-43ce-8b98-55d1d59cda8e"/>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="99" width="185" height="20" uuid="22f5bf1b-106a-41af-aeb0-5229a82afbb3"/>
+				<textFieldExpression><![CDATA[$F{CONCAT(clientes.nombre_cliente,"  ",clientes.razonsocial_cliente)}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="11" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="91" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="12" width="100" height="20" uuid="d547dc87-c6d9-46c5-8216-32a24df1f166"/>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="12" width="100" height="20" uuid="ce2e4cfd-09fb-47d9-a887-05be4b3096ae"/>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="12" width="100" height="20" uuid="c936c722-43bb-4b2f-8fd4-b44a368ecd62"/>
+				<text><![CDATA[Precio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="12" width="100" height="20" uuid="41644006-cbcb-4d61-a87c-876508f2a13b"/>
+				<text><![CDATA[Impuesto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="12" width="100" height="20" uuid="e9e0bf08-53d9-45c2-af5e-9edd23a6a32c"/>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="500" y="12" width="100" height="20" uuid="02ffa450-6652-459f-bad7-29c7cc69419c"/>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="32" width="100" height="20" uuid="0cf04cc4-c8d6-4d70-897c-22f6f41db067"/>
+				<textFieldExpression><![CDATA[$F{productos_produ_codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="32" width="100" height="20" uuid="d3a71371-9713-4350-9615-31a52bd5e155"/>
+				<textFieldExpression><![CDATA[$F{CONCAT(productos.produ_descripcion,"  ",productos.productos_marca)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="32" width="100" height="20" uuid="4e12bdfc-ac57-4ac9-b16c-01f399c8b56d"/>
+				<textFieldExpression><![CDATA[$F{produ_precio_vent}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="32" width="100" height="20" uuid="c5299cea-4438-4207-8b75-9043d2ef4b1f"/>
+				<textFieldExpression><![CDATA[$F{descri_impuesto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="32" width="100" height="20" uuid="0f176f67-fca5-4f47-ab46-b1e627997134"/>
+				<textFieldExpression><![CDATA[$F{estado_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="32" width="100" height="20" uuid="1f95fcca-121c-4e82-9fdb-960da85bac4a"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
